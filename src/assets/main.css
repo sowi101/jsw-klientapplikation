@@ -1,0 +1,12 @@
+ body {
+    background-color: #b0d0d3;
+    color: #333333;
+ }
+
+  .width-15 {
+    width: 15%;
+  }
+
+  .help-text {
+    font-size: 0.8em;
+  }
