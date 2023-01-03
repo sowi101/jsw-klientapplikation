@@ -11,7 +11,7 @@ export default {
     <header class="d-flex justify-content-center py-3 fs-5">
       <!-- Navigation -->
       <nav class="navbar">
-        <!-- Logotype with link to homepage -->
+        <!-- Name of website with link to homepage -->
         <RouterLink to="/" class="text-dark navbar-brand fs-4 fw-bold">Handarbetsloggen</RouterLink>
         <ul class="nav nav-pills">
           <!-- Dropdown menu with links -->
