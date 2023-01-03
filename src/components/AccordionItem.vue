@@ -53,7 +53,7 @@ export default {
             <!-- Accordion body-->
             <div class="accordion-body row">
                 <ul class="list-group list-group-flush col-12 col-md-6">
-                    <li class="list-group-item"><strong>Länk:</strong> {{ project.link }}</li>
+                    <li class="list-group-item"><strong>Länk:</strong><a :href="project.link" target="_blank">{{ project.link }}</a></li>
                     <li class="list-group-item"><strong>Verktyg: </strong>
                         {{ project.tool }}
                     </li>
