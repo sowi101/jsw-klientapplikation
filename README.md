@@ -1,4 +1,4 @@
-# Projekt i JavaScriptbaserad webbutveckling (DT193G)
+# Projekt i JavaScriptbaserad webbutveckling (DT162G)
 I detta repository finns källkodsfiler för en klientapplikation som är tänkt att användas för privat bruk för att logga handarbetesprojekt. Webbplatsen är skapad med hjälp av JavaScript-ramverket Vue och konsumerar data från en webbtjänst som också skapades under samma projekt med hjälp av Node.js och Express. Det finns funktionalitet för att både skapa, läsa, uppdatera och radera projekt, verktyg och garn.  På webbplatsen har jag också använt mig av CSS-ramverket Bootstrap.
 
 ## Länk till webbplats
@@ -27,7 +27,7 @@ Dessa views hanteras med hjälp av en så kallad router, index.js.
 - **ProjectForm**: Består av ett form-element där det inkluderas två BaseInput-komponenter av typen texy, tre BaseSelect-komponenter, en BaseTextarea-komponent och en SubmitButton-komponent. Här finns metoder för att hämta alla verktyg och garn.  
 - **ToolForm**: Består av ett form-element där det inkluderas två BaseInput-komponenter av typen text, en BaseSelect-komponent och en SubmitButton-komponent.
 - **YarnForm**: Består av ett form-element där det inkluderas tre BaseInput-komponenter av typen text och en SubmitButton-komponent.
-- **AccordionItem**: ...
+- **AccordionItem**: Består bland annat av flera div-element, flera button-element (inkludering av två BaseButton-komponenter) och en ul-element med tillhörande li-element. Här finns metod för att radera projekt samt en emit för att göra en ny hämtning av projekten.
 - **Header**: Består av ett header-element i vilket det sedan finns ett nav-element i vilken det finns namn på webbplatsen som länkar till startsidan, en dropdownmeny och två vanliga länkar.
 
 ## Om repositoriet
