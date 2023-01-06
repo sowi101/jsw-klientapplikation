@@ -7,55 +7,59 @@ export default {
   data() {
     return {
       yarns: [],
-      yarn: []
+      yarn: [],
+      error: "",
+      success: ""
     }
   },
   methods: {
     // Method to add yarn to database
     async addYarn(form) {
-      /*
       // Empty messages
       this.error = "";
       this.success = "";
-      */
 
-      // Save data from form to a variable
-      let yarnBody = {
-        category: this.yarn.category,
-        brand: this.yarn.brand,
-        name: this.yarn.name
-      };
-
-      // Fetch to add a document in database
-      const resp = await fetch("http://localhost:3000/yarns", {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(yarnBody)
-      });
-      // Save response from API to variable
-      const data = await resp.json();
-      /*
-      // If statement to check if response from API has errors and save error messages to a variable
-      if (resp.status === 422) {
-        this.error = "Formuläret är felaktigt ifyllt."
-        if (data.errors.name != null) {
-          this.error += " Du har inte fyllt i något namn på kategorin."
+      if (this.yarn.category == null || this.yarn.brand == null || this.yarn.name == null) {
+        this.error = "<strong>Formuläret är felaktigt ifyllt.</strong>"
+        // If statement that checks which input data that is empty and adds messages to a variable
+        if (this.yarn.category == null) {
+          this.error += "<li>Du har inte fyllt i en kategori för garnet.</li>"
+        }
+        if (this.yarn.brand == null) {
+          this.error += "<li>Du har inte fyllt i något märke för garnet.</li>"
+        }
+        if (this.yarn.name == null) {
+          this.error += "<li>Du har inte fyllt i något namn på garnet.</li>"
         }
       } else {
-        // Save success message to variable
-        this.success = "Kategorin är lagrad i databasen."
+        // Save data from form to a variable
+        let yarnBody = {
+          category: this.yarn.category,
+          brand: this.yarn.brand,
+          name: this.yarn.name
+        };
 
-        */
+        // Fetch to add a document in database
+        const resp = await fetch("http://localhost:3000/yarns", {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(yarnBody)
+        });
+        // Save response from API to variable
+        const data = await resp.json();
 
-      // Empty form
-      this.yarn.category = "";
-      this.yarn.brand = "";
-      this.yarn.name = "";
+        // Empty form
+        this.yarn.category = null;
+        this.yarn.brand = null;
+        this.yarn.name = null;
 
-      this.getYarns();
+        this.success = "Garnet är sparat."
+
+        this.getYarns();
+      }
     },
     // Method to get all yarns from database
     async getYarns() {
@@ -76,6 +80,10 @@ export default {
     },
     // Method to delete a yarn from database
     async deleteYarn(id) {
+      // Empty messages 
+      this.success = "";
+      this.error = "";
+
       // Fetch to delete a document
       const resp = await fetch("http://localhost:3000/yarns/" + id, {
         method: "DELETE",
@@ -95,6 +103,15 @@ export default {
   mounted() {
     // Call of method
     this.getYarns();
+  },
+  computed: {
+    yarnTableMessage() {
+      // If statement that checks if the array with categories is empty and saves a message to variable
+      if (this.yarns.length < 1) {
+        let message = "Det finns inga garn sparade.";
+        return message;
+      }
+    }
   }
 }
 </script>
@@ -107,14 +124,22 @@ export default {
       <h2>Lägg till nytt garn</h2>
       <!-- YarnForm component -->
       <YarnForm :yarn="yarn" btntext="Spara" @on-submit="addYarn()" />
+      <br />
+      <!-- If statement that prints error messages if there are any -->
+      <p v-if="error != ''" class="alert alert-danger" role="alert">
+      <ul v-html="error"></ul>
+      </p>
+      <p v-if="success != ''" class="alert alert-success" role="alert">{{ success }}</p>
     </section>
 
     <br />
 
     <section>
       <h2>Sparade garn</h2>
+      <!-- Message if array is empty -->
+      <p>{{ yarnTableMessage }}</p>
       <!-- Table for yarns -->
-      <table class="table">
+      <table v-if="this.yarns.length > 0" class="table">
         <thead>
           <tr>
             <th>Kategori</th>

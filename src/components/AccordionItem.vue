@@ -35,7 +35,7 @@ export default {
     <!-- Accordion item -->
     <div class="accordion-item">
         <!-- Accordion header -->
-        <h2 class="accordion-header" :id="'headingFor' + project.name">
+        <h3 class="accordion-header" :id="'headingFor' + project.name">
             <!-- Accordion button -->
             <button class="accordion-button collapsed text-dark fw-bold" type="button" data-bs-toggle="collapse"
                 :data-bs-target="'#' + project.name" aria-expanded="true" :aria-controls="project.name">
@@ -45,7 +45,7 @@ export default {
                 <span v-if="project.status === 'Påbörjad'" class="badge text-bg-success">Påbörjad</span>
                 <span v-if="project.status === 'Avslutad'" class="badge text-bg-danger">Avslutad</span>
             </button>
-        </h2>
+        </h3>
 
         
         <div :id="project.name" class="accordion-collapse collapse" :aria-labelledby="'headingFor' + project.name"
@@ -53,7 +53,7 @@ export default {
             <!-- Accordion body-->
             <div class="accordion-body row">
                 <ul class="list-group list-group-flush col-12 col-md-6">
-                    <li class="list-group-item"><strong>Länk:</strong><a :href="project.link" target="_blank">{{ project.link }}</a></li>
+                    <li class="list-group-item"><strong>Länk: </strong><a :href="project.link" target="_blank">{{ project.link }}</a></li>
                     <li class="list-group-item"><strong>Verktyg: </strong>
                         {{ project.tool }}
                     </li>

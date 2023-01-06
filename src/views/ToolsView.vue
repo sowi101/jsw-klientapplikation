@@ -7,55 +7,60 @@ export default {
   data() {
     return {
       tools: [],
-      tool: []
+      tool: [],
+      error: "",
+      success: ""
     }
   },
   methods: {
     // Method to add tool to database
     async addTool(form) {
-      /*
+
       // Empty messages
       this.error = "";
       this.success = "";
-      */
 
-      // Save data from form to a variable
-      let toolBody = {
-        category: this.tool.category,
-        brand: this.tool.brand,
-        size: this.tool.size
-      };
-      // Fetch to add document to database
-      const resp = await fetch("http://localhost:3000/tools", {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(toolBody)
-      });
-      // Save response from API to variable
-      const data = await resp.json();
-      /*
-      // If statement to check if response from API has errors and save error messages to a variable
-      if (resp.status === 422) {
-        this.error = "Formuläret är felaktigt ifyllt."
-        if (data.errors.name != null) {
-          this.error += " Du har inte fyllt i något namn på kategorin."
+      if (this.tool.category == null || this.tool.brand == null || this.tool.size == null) {
+        this.error = "<strong>Formuläret är felaktigt ifyllt.</strong>"
+        // If statement that checks which input data that is empty and adds messages to a variable
+        if (this.tool.category == null) {
+          this.error += "<li>Du har inte fyllt i en kategori för verktyget.</li>"
+        }
+        if (this.tool.brand == null) {
+          this.error += "<li>Du har inte fyllt i något märke för verktyget.</li>"
+        }
+        if (this.tool.size == null) {
+          this.error += "<li>Du har inte valt storlek på verktyget.</li>"
         }
       } else {
-        // Save success message to variable
-        this.success = "Kategorin är lagrad i databasen."
+        // Save data from form to a variable
+        let toolBody = {
+          category: this.tool.category,
+          brand: this.tool.brand,
+          size: this.tool.size
+        };
+        // Fetch to add document to database
+        const resp = await fetch("http://localhost:3000/tools", {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(toolBody)
+        });
+        // Save response from API to variable
+        const data = await resp.json();
 
-        */
+        // Empty form
+        this.tool.category = null;
+        this.tool.brand = null;
+        this.tool.size =  null;
 
-      // Empty form
-      this.tool.category = "";
-      this.tool.brand = "";
-      this.tool.size = "";
+        this.success = "Verktyget är sparat."
 
-      // Call of method
-      this.getTools();
+        // Call of method
+        this.getTools();
+      }
     },
     // Method to get all tools from database
     async getTools() {
@@ -77,6 +82,9 @@ export default {
     },
     // Method to delete a tool from database
     async deleteTool(id) {
+      this.error = "";
+      this.success = "";
+
       // Fetch to delete a document
       const resp = await fetch("http://localhost:3000/tools/" + id, {
         method: "DELETE",
@@ -95,6 +103,15 @@ export default {
   mounted() {
     // Call of method
     this.getTools();
+  },
+  computed: {
+    toolTableMessage() {
+      // If statement that checks if the array with categories is empty and saves a message to variable
+      if (this.tools.length < 1) {
+        let message = "Det finns inga verktyg sparade.";
+        return message;
+      }
+    }
   }
 }
 </script>
@@ -108,14 +125,22 @@ export default {
       <h2>Lägg till nytt verktyg</h2>
       <!-- ToolForm component -->
       <ToolForm :tool="tool" btntext="Spara" @on-submit="addTool()" />
+      <br />
+      <!-- If statement that prints error messages if there are any -->
+      <p v-if="error != ''" class="alert alert-danger" role="alert">
+      <ul v-html="error"></ul>
+      </p>
+      <p v-if="success != ''" class="alert alert-success" role="alert">{{ success }}</p>
     </section>
-    
+
     <br />
 
     <section>
       <h2>Sparade verktyg</h2>
+      <!-- Message if array is empty -->
+      <p>{{ toolTableMessage }}</p>
       <!-- Table for tools -->
-      <table class="table">
+      <table v-if="this.tools.length > 0" class="table">
         <thead>
           <tr>
             <th>Kategori</th>

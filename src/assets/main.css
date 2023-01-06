@@ -1,6 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto:ital,wght@0,400;0,500;1,700&display=swap');
+
  body {
     background-color: #b0d0d3;
     color: #333333;
+    font-family: 'Open Sans', sans-serif;
+ }
+ 
+ h1, h2, h3, h4, h5, h6 {
+     font-family: 'Roboto', sans-serif;
+ }
+
+ h1 {
+  text-align: center;
  }
 
   .width-15 {
@@ -9,4 +20,8 @@
 
   .help-text {
     font-size: 0.8em;
+  }
+
+  a {
+    color:#333333;
   }

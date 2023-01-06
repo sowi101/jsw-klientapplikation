@@ -25,13 +25,13 @@ export default {
     <form @submit.prevent="$emit('on-submit', form)">
         <div class="row">
             <!-- Input element for category -->
-            <BaseInput label="Kategori" id="category" type="text" v-model="yarn.category" />
+            <BaseInput label="Kategori" id="category" type="text" v-model="yarn.category" class="col-12 col-md-4" />
 
             <!-- Input element for brand -->
-            <BaseInput label="Märke" id="brand" type="text" v-model="yarn.brand" />
+            <BaseInput label="Märke" id="brand" type="text" v-model="yarn.brand" class="col-12 col-md-4" />
 
             <!-- Input element for name -->
-            <BaseInput label="Namn" id="name" type="text" v-model="yarn.name" />
+            <BaseInput label="Namn" id="name" type="text" v-model="yarn.name" class="col-12 col-md-4" />
         </div>
         <p>
             <!-- Submit button -->

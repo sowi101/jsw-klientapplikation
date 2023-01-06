@@ -28,50 +28,59 @@ export default {
         },
         // Method to update a project in database
         async updateProject(projectForm) {
-            /*
             // Empty message
             this.error = "";
-            */
 
-            // Save data from form to a variable
-            let projectBody = {
-                name: this.project.name,
-                link: this.project.link,
-                status: this.project.status,
-                tool: this.project.tool,
-                yarn: this.project.yarn,
-                information: this.project.information
-            };
-            // Fetch to update a specific document
-            const resp = await fetch("http://localhost:3000/projects/" + this.$route.params.id, {
-                method: "PUT",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify(projectBody)
-            });
+            console.log(this.error);
 
-            // Save response to a variable
-            const data = await resp.json();
-           
-           /*
-            // If statement to check if response from API has errors and save error messages to a variable
-            if (resp.status === 422) {
-                this.error = "Formuläret är felaktigt ifyllt."
-                if (data.errors.name != null) {
-                    this.error += " Du har inte fyllt i något namn på kategorin."
+            if (this.project.name == null || this.project.link == null || this.project.status == null || this.project.tool == null || this.project.yarn == null || this.project.information == null) {
+                this.error = "<strong>Formuläret är felaktigt ifyllt.</strong>"
+                // If statement that checks which input data that is empty and adds messages to a variable
+                if (this.project.name == null) {
+                    this.error += "<li>Du har inte fyllt i något namn på projektet.</li>"
+                }
+                if (this.project.link == null) {
+                    this.error += "<li>Du har inte fyllt i någon länk till mönster för projektet.</li>"
+                }
+                if (this.project.status == null) {
+                    this.error += "<li>Du har inte valt status på projektet.</li>"
+                }
+                if (this.project.tool == null) {
+                    this.error += "<li>Du har inte valt vilket verktyg för projektet.</li>"
+                }
+                if (this.project.yarn == null) {
+                    this.error += "<li>Du har inte valt vilket garn för projektet.</li>"
+                }
+                if (this.project.information == null) {
+                    this.error += "<li>Du har inte fyllt i någon övrig information om projektet.</li>"
                 }
             } else {
-                // Emit to parent component
-                this.$emit("categoryUpdated");
-                // Redirection to CategoryListView
-                this.$router.push({ name: 'kategorier' });
+                // Save data from form to a variable
+                let projectBody = {
+                    name: this.project.name,
+                    link: this.project.link,
+                    status: this.project.status,
+                    tool: this.project.tool,
+                    yarn: this.project.yarn,
+                    information: this.project.information
+                };
+                // Fetch to update a specific document
+                const resp = await fetch("http://localhost:3000/projects/" + this.$route.params.id, {
+                    method: "PUT",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-type": "application/json",
+                    },
+                    body: JSON.stringify(projectBody)
+                });
+
+                // Save response to a variable
+                const data = await resp.json();
+
+                // Redirection to ProjectsView
+                this.$router.push({ name: 'projekt' });
             }
-            */
-           // Redirection to ProjectsView
-        this.$router.push({ name: 'projekt' });
-        },
+        }
     },
     mounted() {
         // Call of method
@@ -85,5 +94,10 @@ export default {
         <h1>Ändra projekt</h1>
         <!-- ProjectForm component -->
         <ProjectForm :project="project" btntext="Ändra" @on-submit="updateProject()" />
+        <br />
+        <!-- If statement that prints error messages if there are any -->
+        <p v-if="error != ''" class="alert alert-danger" role="alert">
+            <ul v-html="error"></ul>
+        </p>
     </main>
 </template>
