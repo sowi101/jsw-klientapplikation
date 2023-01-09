@@ -21,6 +21,7 @@ export default {
         },
         options: Object,
     },
+    emits: ['update:modelValue'],
     data() {
         return {
             statusOptions: [{ state: 'Idé' }, { state: 'Påbörjad' }, { state: "Avslutad" }],

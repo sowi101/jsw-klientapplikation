@@ -70,12 +70,14 @@ export default {
 <template>
     <main class="container col-10 col-md-7 mx-auto card my-5 py-2 shadow">
         <h1>Lägg till projekt</h1>
-        <!-- ProjectForm component -->
-        <ProjectForm :project="project" btntext="Spara" @on-submit="addProject()" />
-        <br />
         <!-- If statement that prints error messages if there are any -->
         <p v-if="error != ''" class="alert alert-danger" role="alert">
-            <ul v-html="error"></ul>
+        <ul v-html="error"></ul>
         </p>
+        <br />
+        <!-- ProjectForm component -->
+        <ProjectForm :project="project" btntext="Spara" @on-submit="addProject()" />
+
+
     </main>
 </template>

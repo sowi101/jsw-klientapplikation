@@ -9,7 +9,8 @@ export default {
       yarns: [],
       yarn: [],
       error: "",
-      success: ""
+      success: "",
+      delete: ""
     }
   },
   methods: {
@@ -18,6 +19,7 @@ export default {
       // Empty messages
       this.error = "";
       this.success = "";
+      this.delete = "";
 
       if (this.yarn.category == null || this.yarn.brand == null || this.yarn.name == null) {
         this.error = "<strong>Formuläret är felaktigt ifyllt.</strong>"
@@ -98,6 +100,9 @@ export default {
 
       // Call of method
       this.getYarns();
+
+      // Save delete message to variable
+      this.delete = "Garnet är raderat."
     }
   },
   mounted() {
@@ -138,6 +143,8 @@ export default {
       <h2>Sparade garn</h2>
       <!-- Message if array is empty -->
       <p>{{ yarnTableMessage }}</p>
+      <!-- Message when yarn is deleted -->
+      <p v-if="this.delete != ''" class="alert alert-success" role="alert">{{ this.delete }}</p>
       <!-- Table for yarns -->
       <table v-if="this.yarns.length > 0" class="table">
         <thead>

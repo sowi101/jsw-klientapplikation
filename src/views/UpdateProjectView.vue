@@ -6,6 +6,7 @@ export default {
     data() {
         return {
             project: Object,
+            error: ""
         }
     },
     methods: {
@@ -31,27 +32,25 @@ export default {
             // Empty message
             this.error = "";
 
-            console.log(this.error);
-
-            if (this.project.name == null || this.project.link == null || this.project.status == null || this.project.tool == null || this.project.yarn == null || this.project.information == null) {
+            if (this.project.name == "" || this.project.link == "" || this.project.status == "" || this.project.tool == "" || this.project.yarn == "" || this.project.information == "") {
                 this.error = "<strong>Formuläret är felaktigt ifyllt.</strong>"
                 // If statement that checks which input data that is empty and adds messages to a variable
-                if (this.project.name == null) {
+                if (this.project.name == "") {
                     this.error += "<li>Du har inte fyllt i något namn på projektet.</li>"
                 }
-                if (this.project.link == null) {
+                if (this.project.link == "") {
                     this.error += "<li>Du har inte fyllt i någon länk till mönster för projektet.</li>"
                 }
-                if (this.project.status == null) {
+                if (this.project.status == "") {
                     this.error += "<li>Du har inte valt status på projektet.</li>"
                 }
-                if (this.project.tool == null) {
+                if (this.project.tool == "") {
                     this.error += "<li>Du har inte valt vilket verktyg för projektet.</li>"
                 }
-                if (this.project.yarn == null) {
+                if (this.project.yarn == "") {
                     this.error += "<li>Du har inte valt vilket garn för projektet.</li>"
                 }
-                if (this.project.information == null) {
+                if (this.project.information == "") {
                     this.error += "<li>Du har inte fyllt i någon övrig information om projektet.</li>"
                 }
             } else {
@@ -92,12 +91,12 @@ export default {
 <template>
     <main class="container col-10 col-md-7 mx-auto card my-5 py-2 shadow">
         <h1>Ändra projekt</h1>
-        <!-- ProjectForm component -->
-        <ProjectForm :project="project" btntext="Ändra" @on-submit="updateProject()" />
-        <br />
         <!-- If statement that prints error messages if there are any -->
         <p v-if="error != ''" class="alert alert-danger" role="alert">
             <ul v-html="error"></ul>
         </p>
+        <br />
+        <!-- ProjectForm component -->
+        <ProjectForm :project="project" btntext="Ändra" @on-submit="updateProject()" />
     </main>
 </template>

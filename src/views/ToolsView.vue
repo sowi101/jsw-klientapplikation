@@ -9,7 +9,8 @@ export default {
       tools: [],
       tool: [],
       error: "",
-      success: ""
+      success: "",
+      delete: ""
     }
   },
   methods: {
@@ -19,6 +20,7 @@ export default {
       // Empty messages
       this.error = "";
       this.success = "";
+      this.delete = "";
 
       if (this.tool.category == null || this.tool.brand == null || this.tool.size == null) {
         this.error = "<strong>Formuläret är felaktigt ifyllt.</strong>"
@@ -84,6 +86,7 @@ export default {
     async deleteTool(id) {
       this.error = "";
       this.success = "";
+      this.delete = "";
 
       // Fetch to delete a document
       const resp = await fetch("http://localhost:3000/tools/" + id, {
@@ -97,7 +100,11 @@ export default {
       // Save response from API to database
       const data = await resp.json();
 
+      // Call of method
       this.getTools();
+
+      // Save delete message to variable
+      this.delete = "Verktyget är raderat."
     }
   },
   mounted() {
@@ -115,7 +122,6 @@ export default {
   }
 }
 </script>
-
 
 <template>
   <main class="container col-10 col-md-7 mx-auto card my-5 py-2 shadow">
@@ -139,6 +145,8 @@ export default {
       <h2>Sparade verktyg</h2>
       <!-- Message if array is empty -->
       <p>{{ toolTableMessage }}</p>
+      <!-- Message when tool is deleted -->
+      <p v-if="this.delete != ''" class="alert alert-success" role="alert">{{ this.delete }}</p>
       <!-- Table for tools -->
       <table v-if="this.tools.length > 0" class="table">
         <thead>

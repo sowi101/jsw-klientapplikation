@@ -14,7 +14,8 @@ export default {
       type: [String],
       default: "",
     }
-  }
+  },
+  emits: ['update:modelValue']
 }
 </script>
 

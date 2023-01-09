@@ -6,6 +6,7 @@ export default {
     data() {
         return {
             yarn: Object,
+            error: ""
         }
     },
     methods: {
@@ -28,46 +29,46 @@ export default {
         },
         // Method to update a yarn in database
         async updateYarn(form) {
-            /*
+
             // Empty message
             this.error = "";
-            */
-            // Save data from form to a variable
-            let yarnBody = {
-                category: this.yarn.category,
-                brand: this.yarn.brand,
-                name: this.yarn.name
-            };
-            // Fetch to update a document
-            const resp = await fetch("http://localhost:3000/yarns/" + this.$route.params.id, {
-                method: "PUT",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify(yarnBody)
-            });
 
-            // Save response to a variable
-            const data = await resp.json();
+            if (this.yarn.category == "" || this.yarn.brand == "" || this.yarn.size == "") {
+                this.error = "<strong>Formuläret är felaktigt ifyllt.</strong>"
+                // If statement that checks which input data that is empty and adds messages to a variable
+                if (this.yarn.category == "") {
+                    this.error += "<li>Du har inte fyllt i någon kategori för garnet.</li>"
+                }
+                if (this.yarn.brand == "") {
+                    this.error += "<li>Du har inte fyllt i något märke för garnet.</li>"
+                }
+                if (this.yarn.name == "") {
+                    this.error += "<li>Du har inte fyllt i något namn på garnet.</li>"
+                }
+            } else {
+                // Save data from form to a variable
+                let yarnBody = {
+                    category: this.yarn.category,
+                    brand: this.yarn.brand,
+                    name: this.yarn.name
+                };
+                // Fetch to update a document
+                const resp = await fetch("http://localhost:3000/yarns/" + this.$route.params.id, {
+                    method: "PUT",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-type": "application/json",
+                    },
+                    body: JSON.stringify(yarnBody)
+                });
 
-            /*
-             // If statement to check if response from API has errors and save error messages to a variable
-             if (resp.status === 422) {
-                 this.error = "Formuläret är felaktigt ifyllt."
-                 if (data.errors.name != null) {
-                     this.error += " Du har inte fyllt i något namn på kategorin."
-                 }
-             } else {
-                 // Emit to parent component
-                 this.$emit("categoryUpdated");
-                 // Redirection to CategoryListView
-                 this.$router.push({ name: 'kategorier' });
-             }
-             */
-            // Redirection to YarnsView
-            this.$router.push({ name: 'garn' });
-        },
+                // Save response to a variable
+                const data = await resp.json();
+
+                // Redirection to YarnsView
+                this.$router.push({ name: 'garn' });
+            }
+        }
     },
     mounted() {
         // Call of method
@@ -79,6 +80,11 @@ export default {
 <template>
     <main class="container col-10 col-md-7 mx-auto card my-5 py-2 shadow">
         <h1>Ändra garn</h1>
+        <!-- If statement that prints error messages if there are any -->
+        <p v-if="error != ''" class="alert alert-danger" role="alert">
+        <ul v-html="error"></ul>
+        </p>
+        <br />
         <!-- YarnForm component-->
         <YarnForm :yarn="yarn" btntext="Ändra" @on-submit="updateYarn()" />
     </main>

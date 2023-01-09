@@ -5,7 +5,8 @@ export default {
   components: { AccordionItem },
   data() {
     return {
-      projects: []
+      projects: [],
+      delete: ""
     }
   },
   methods: {
@@ -25,6 +26,13 @@ export default {
 
       // Save all objects to an array
       this.projects = data;
+    },
+    projectDeleted() {
+      // Call of method
+      this.getProjects();
+
+      // Save delete message to variable
+      this.delete = "Projektet är raderat."
     }
   },
   mounted() {
@@ -44,19 +52,20 @@ export default {
     }
   }
 }
-
 </script>
 
 <template>
   <main class="container col-10 col-md-7 mx-auto card my-5 py-2 shadow">
     <h1>Projekt</h1>
+    <!-- Message when project is deleted -->
+    <p v-if="this.delete != ''" class="alert alert-success" role="alert">{{ this.delete }}</p>
     <section>
       <h2>Projektidéer</h2>
       <!-- Accordion element for project ideas -->
       <div v-if="projectIdeas.length > 0" class="accordion my-3" id="accordionProjectIdeas">
         <!-- Accordion component with for each loop -->
         <AccordionItem v-for="project in projectIdeas" :key=project.id :project="project"
-          @projectDeleted="getProjects()" parent="#accordionProjectIdeas" />
+          @projectDeleted="projectDeleted()" parent="#accordionProjectIdeas" />
       </div>
       <!-- Message if array is empty -->
       <p v-else>Det finns inga projektidéer sparade i loggen.</p>
@@ -80,15 +89,10 @@ export default {
       <div v-if="projectFinished.length > 0" class="accordion my-3" id="accordionProjectFinished">
         <!-- Accordion component with for each loop -->
         <AccordionItem v-for="project in projectFinished" :key=project.id :project="project"
-          @projectDeleted="getProjects()" parent="#accordionProjectFinished" />
+          @projectDeleted="projectDeleted()" parent="#accordionProjectFinished" />
       </div>
       <!-- Message if array is empty -->
       <p v-else>Det finns inga avslutade projekt sparade i loggen.</p>
     </section>
   </main>
-
 </template>
-
-<style>
-
-</style>
