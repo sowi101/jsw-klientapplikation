@@ -28,7 +28,7 @@ export default {
             this.project = data;
         },
         // Method to update a project in database
-        async updateProject(projectForm) {
+        async updateProject(form) {
             // Empty message
             this.error = "";
 
