@@ -56,7 +56,7 @@ export default {
         // Empty form
         this.tool.category = null;
         this.tool.brand = null;
-        this.tool.size =  null;
+        this.tool.size = null;
 
         this.success = "Verktyget är sparat."
 
@@ -110,15 +110,6 @@ export default {
   mounted() {
     // Call of method
     this.getTools();
-  },
-  computed: {
-    toolTableMessage() {
-      // If statement that checks if the array with categories is empty and saves a message to variable
-      if (this.tools.length < 1) {
-        let message = "Det finns inga verktyg sparade.";
-        return message;
-      }
-    }
   }
 }
 </script>
@@ -129,22 +120,20 @@ export default {
 
     <section>
       <h2>Lägg till nytt verktyg</h2>
-      <!-- ToolForm component -->
-      <ToolForm :tool="tool" btntext="Spara" @on-submit="addTool()" />
-      <br />
       <!-- If statement that prints error messages if there are any -->
       <p v-if="error != ''" class="alert alert-danger" role="alert">
-      <ul v-html="error"></ul>
+        <ul v-html="error"></ul>
       </p>
       <p v-if="success != ''" class="alert alert-success" role="alert">{{ success }}</p>
+      <!-- ToolForm component -->
+      <ToolForm :tool="tool" btntext="Spara" @on-submit="addTool()" />
+
     </section>
 
     <br />
 
     <section>
       <h2>Sparade verktyg</h2>
-      <!-- Message if array is empty -->
-      <p>{{ toolTableMessage }}</p>
       <!-- Message when tool is deleted -->
       <p v-if="this.delete != ''" class="alert alert-success" role="alert">{{ this.delete }}</p>
       <!-- Table for tools -->
@@ -177,6 +166,8 @@ export default {
           </tr>
         </tbody>
       </table>
+      <!-- Message if array is empty -->
+      <p v-else>Det finns inga verktyg sparade.</p>
     </section>
   </main>
 </template>

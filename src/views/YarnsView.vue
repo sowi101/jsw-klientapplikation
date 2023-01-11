@@ -108,15 +108,6 @@ export default {
   mounted() {
     // Call of method
     this.getYarns();
-  },
-  computed: {
-    yarnTableMessage() {
-      // If statement that checks if the array with categories is empty and saves a message to variable
-      if (this.yarns.length < 1) {
-        let message = "Det finns inga garn sparade.";
-        return message;
-      }
-    }
   }
 }
 </script>
@@ -127,22 +118,19 @@ export default {
 
     <section>
       <h2>Lägg till nytt garn</h2>
-      <!-- YarnForm component -->
-      <YarnForm :yarn="yarn" btntext="Spara" @on-submit="addYarn()" />
-      <br />
       <!-- If statement that prints error messages if there are any -->
       <p v-if="error != ''" class="alert alert-danger" role="alert">
-      <ul v-html="error"></ul>
+        <ul v-html="error"></ul>
       </p>
       <p v-if="success != ''" class="alert alert-success" role="alert">{{ success }}</p>
+      <!-- YarnForm component -->
+      <YarnForm :yarn="yarn" btntext="Spara" @on-submit="addYarn()" />
     </section>
 
     <br />
 
     <section>
       <h2>Sparade garn</h2>
-      <!-- Message if array is empty -->
-      <p>{{ yarnTableMessage }}</p>
       <!-- Message when yarn is deleted -->
       <p v-if="this.delete != ''" class="alert alert-success" role="alert">{{ this.delete }}</p>
       <!-- Table for yarns -->
@@ -173,6 +161,8 @@ export default {
           </tr>
         </tbody>
       </table>
+      <!-- Message if array is empty -->
+      <p v-else>Det finns inga garn sparade.</p>
     </section>
   </main>
 </template>
