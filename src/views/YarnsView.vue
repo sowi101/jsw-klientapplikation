@@ -116,7 +116,7 @@ export default {
   <main class="container col-10 col-md-7 mx-auto card my-5 py-2 shadow">
     <h1>Garn</h1>
 
-    <section>
+    <section class="my-2">
       <h2>Lägg till nytt garn</h2>
       <!-- If statement that prints error messages if there are any -->
       <p v-if="error != ''" class="alert alert-danger" role="alert">
@@ -129,7 +129,7 @@ export default {
 
     <br />
 
-    <section>
+    <section class="my-2">
       <h2>Sparade garn</h2>
       <!-- Message when yarn is deleted -->
       <p v-if="this.delete != ''" class="alert alert-success" role="alert">{{ this.delete }}</p>
@@ -137,25 +137,25 @@ export default {
       <table v-if="this.yarns.length > 0" class="table">
         <thead>
           <tr>
-            <th>Kategori</th>
-            <th class="d-none d-md-table-cell w-25">Märke</th>
+            <th class="d-none d-md-table-cell">Kategori</th>
+            <th class="d-none d-lg-table-cell">Märke</th>
             <th>Namn</th>
-            <th class="invisible width-15">Ändra</th>
-            <th class="invisible width-15">Radera</th>
+            <th class="invisible">Ändra</th>
+            <th class="invisible">Radera</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="yarn in yarns" :key="yarn._id">
-            <td class="align-middle">{{ yarn.category }}</td>
-            <td class="d-none d-md-table-cell align-middle w-25">{{ yarn.brand }}</td>
+            <td class="d-none d-md-table-cell align-middle">{{ yarn.category }}</td>
+            <td class="d-none d-lg-table-cell align-middle">{{ yarn.brand }}</td>
             <td class="align-middle">{{ yarn.name }}</td>
             <!-- Button for update and delete -->
-            <td class="width-15 align-middle">
-              <RouterLink class="col mx-1" :to="{ name: 'uppdatera garn', params: { id: yarn._id } }">
+            <td class="align-middle">
+              <RouterLink class="col" :to="{ name: 'uppdatera garn', params: { id: yarn._id } }">
                 <BaseButton text="Ändra" />
               </RouterLink>
             </td>
-            <td class="width-15 align-middle">
+            <td class="align-middle">
               <BaseButton @click="deleteYarn(yarn._id)" class="btn-delete" text="Radera" />
             </td>
           </tr>

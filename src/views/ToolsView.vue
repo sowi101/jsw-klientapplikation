@@ -118,7 +118,7 @@ export default {
   <main class="container col-10 col-md-7 mx-auto card my-5 py-2 shadow">
     <h1>Verktyg</h1>
 
-    <section>
+    <section class="my-2">
       <h2>Lägg till nytt verktyg</h2>
       <!-- If statement that prints error messages if there are any -->
       <p v-if="error != ''" class="alert alert-danger" role="alert">
@@ -132,7 +132,7 @@ export default {
 
     <br />
 
-    <section>
+    <section class="my-2">
       <h2>Sparade verktyg</h2>
       <!-- Message when tool is deleted -->
       <p v-if="this.delete != ''" class="alert alert-success" role="alert">{{ this.delete }}</p>
@@ -142,9 +142,9 @@ export default {
           <tr>
             <th>Kategori</th>
             <th class="d-none d-md-table-cell">Märke</th>
-            <th class="width-15 text-center">Storlek</th>
-            <th class="invisible width-15">Ändra</th>
-            <th class="invisible width-15">Radera</th>
+            <th class="">Storlek</th>
+            <th class="invisible">Ändra</th>
+            <th class="invisible">Radera</th>
           </tr>
         </thead>
         <tbody>
@@ -152,15 +152,15 @@ export default {
           <tr v-for="tool in tools" :tool="tool" :key="tool._id">
             <td class="align-middle">{{ tool.category }}</td>
             <td class="d-none d-md-table-cell align-middle">{{ tool.brand }}</td>
-            <td class="text-center align-middle">{{ tool.size }}</td>
+            <td class="align-middle">{{ tool.size }}</td>
 
             <!-- Buttons for update and delete -->
-            <td class="width-15 align-middle">
-              <RouterLink class="col mx-1" :to="{ name: 'uppdatera verktyg', params: { id: tool._id } }">
+            <td class="align-middle">
+              <RouterLink class="col" :to="{ name: 'uppdatera verktyg', params: { id: tool._id } }">
                 <BaseButton text="Ändra" />
               </RouterLink>
             </td>
-            <td class="width-15 align-middle">
+            <td class="align-middle">
               <BaseButton @click="deleteTool(tool._id)" class="btn-delete" text="Radera" />
             </td>
           </tr>
