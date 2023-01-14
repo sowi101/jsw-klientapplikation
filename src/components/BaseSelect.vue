@@ -21,13 +21,13 @@ export default {
         },
         options: Object,
     },
-    emits: ['update:modelValue'],
     data() {
         return {
             statusOptions: [{ state: 'Idé' }, { state: 'Påbörjad' }, { state: "Avslutad" }],
             sizeOptions: [{ size: '2 mm' }, { size: '2.5 mm' }, { size: "3 mm" }, { size: '3.5 mm' }, { size: '4 mm' }, { size: '4.5 mm' }, { size: "5 mm" }, { size: '6 mm' }, { size: '7 mm' }]
         }
-    }
+    },
+    emits: ['update:modelValue']
 }
 </script>
 
