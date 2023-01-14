@@ -19,7 +19,7 @@ export default {
       <nav class="navbar navbar-expand-lg w-100">
         <div class="container-fluid">
           <!-- Name of website with link to homepage -->
-          <RouterLink to="/" class="text-dark navbar-brand fs-4 fw-bold">Handarbetsloggen</RouterLink>
+          <RouterLink to="/" class="text-dark navbar-brand fs-4 fw-bold">Handarbetesloggen</RouterLink>
           <!-- Toggler for mobile menu -->
           <button class="navbar-toggler me-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
             aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
