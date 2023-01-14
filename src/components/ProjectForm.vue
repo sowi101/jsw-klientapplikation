@@ -1,4 +1,10 @@
 <script>
+/*
+*Code written by Sofia Widholm. 
+*JavaScriptbaserad webbutveckling, Webbutveckling, Mittuniversitetet.
+*Last update 2023-01-14
+*/
+
 import BaseInput from './BaseInput.vue';
 import SubmitButton from './SubmitButton.vue';
 import BaseSelect from './BaseSelect.vue';

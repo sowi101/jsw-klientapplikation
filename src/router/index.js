@@ -1,3 +1,9 @@
+/*
+*Code written by Sofia Widholm. 
+*JavaScriptbaserad webbutveckling, Webbutveckling, Mittuniversitetet.
+*Last update 2023-01-14
+*/
+
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import ProjectsView from "../views/ProjectsView.vue";
