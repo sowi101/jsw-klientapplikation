@@ -1,8 +1,6 @@
 # Projekt i JavaScriptbaserad webbutveckling (DT162G)
 I detta repository finns källkodsfiler för en klientapplikation som är tänkt att användas för privat bruk för att logga handarbetesprojekt. Webbplatsen är skapad med hjälp av JavaScript-ramverket Vue och konsumerar data från en webbtjänst som också skapades under samma projekt med hjälp av Node.js och Express. Det finns funktionalitet för att både skapa, läsa, uppdatera och radera projekt, verktyg och garn.  På webbplatsen har jag också använt mig av CSS-ramverket Bootstrap.
 
-## Länk till webbplats
-
 ## Klientapplikation
 Roten App innehåller komponenten Header och komponenten RouterView och utgör grunden för webbplatsen.
 
